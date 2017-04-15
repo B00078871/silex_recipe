@@ -11,27 +11,20 @@ namespace Itb;
 use Silex\Application;
 use Silex\Provider;
 
-
+use Itb\Controller\MainController;
+use Itb\Controller\UserController;
 
 class WebApplication extends Application
 {
     // location of Twig templates
     private $myTemplatesPath = __DIR__ . '/../templates';
 
-
     public function __construct()
     {
         parent::__construct();
-
         // setup Session and Service controller provider
-        $this->register(new Provider\SessionServiceProvider());
+        //$this->register(new Provider\SessionServiceProvider());
         $this->register(new Provider\ServiceControllerServiceProvider());
-
-        include('Controller/login.php'); // Includes Login Script
-
-        if (isset($_SESSION['login_user'])) {
-            header("location: profile.php");
-        }
 
         $this['debug'] = true;
         $this->setupTwig();
@@ -81,37 +74,12 @@ class WebApplication extends Application
         // ------ login routes GET and POST ------------
         $this->get('/login', 'user.controller:loginAction');
         $this->post('/login', 'user.controller:processLoginAction');
-
         // ------ logout route GET ------------
         $this->get('/logout', 'user.controller:logoutAction');
 
         // ------ SECURE PAGES ----------
         $this->get('/admin', 'admin.controller:indexAction');
         $this->get('/admin/codes', 'admin.controller:codesAction');
-
     }
 }
 ?>
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Login Form in PHP with Session</title>
-        <link href="../public/css/style.css" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-    <div id="main">
-        <h1>PHP Login Session Example</h1>
-        <div id="login">
-            <h2>Login Form</h2>
-            <form action="" method="post">
-                <label>UserName :</label>
-                <input id="name" name="username" placeholder="username" type="text">
-                <label>Password :</label>
-                <input id="password" name="password" placeholder="**********" type="password">
-                <input name="submit" type="submit" value=" Login ">
-            </form>
-        </div>
-    </div>
-    </body>
-    </html>
