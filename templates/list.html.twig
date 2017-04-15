@@ -1,0 +1,18 @@
+{% extends '_base.html.twig' %}
+
+{% block pageTitle %}Recipe list page{% endblock %}
+
+{% block main %}
+
+    <h1>RECIPES:</h1>
+
+    <table>
+        {% for recipes in recipes %}
+            <tr>
+                <td><a href="/display/{{ recipes.id }}"> {{ recipes.title }}</a></td>
+                <td><img src="/images/{{ recipes.image }}"></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

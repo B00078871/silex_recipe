@@ -1,0 +1,14 @@
+{% extends '_base.html.twig' %}
+
+{% block pageTitle %}Recipe {{recipes.id}}{% endblock %}
+
+{% block main %}
+
+    <h1>{{ recipes.title }} Recipe</h1>
+
+    <p><strong>tags: {{ recipes.tags }}</strong></p>
+    <p><img src="/images/{{ recipes.image }}"></p>
+    <p><strong>Ingredients:</strong> {{ recipes.ingredients }}</p>
+    <p><strong>Directions:</strong> {{ recipes.instructions }}</p>
+
+{% endblock %}
