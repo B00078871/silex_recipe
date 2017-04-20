@@ -8,7 +8,9 @@
 
 namespace Itb\Controller;
 
-use Itb\Model\Recipes;
+use Silex\Application as SilexApp;
+use Symfony\Component\HttpFoundation\Request;
+
 use Itb\Model\RecipesRepository;
 use Itb\WebApplication;
 
@@ -20,60 +22,62 @@ class UserController
     {
         $this->app = $app;
     }
-
-    // action for route:    /
-    public function loginAction()
+    // route for /login
+    public function loginAction(Request $request, SilexApp $app)
     {
         // add to args array
-        // ------------
         $argsArray = [];
-
         // render (draw) template
-        // ------------
         $templateName = 'login';
-        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+        return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
-    public function processLoginAction()
+    public function logoutAction(Request $request, SilexApp $app)
     {
-        session_start();
-        echo 'Welcome '.$_SESSION['username'];
+        // logout any existing user
+        $app['session']->remove('user');
+        // redirect to home page
+        return $app->redirect('/');
+    }
+    public function processLoginAction(Request $request, SilexApp $app)
+    {
+        /*$request = $app['request_stack']->getCurrentRequest();
+        $username = $request->get('username');
+        $password = $request->get('password');
 
-        if(isset ($_GET['bttLogin'])) {
+        if ('users' === $username && 'users' === $password) {
+            // store username in 'user' in 'session'
+            $app['session']->set('users', array('username' => $username));
 
-            $username = $_GET['username'];
-            $password = $_GET['password'];
-            $con = mysqli_connect('localhost', 'root', '', 'recipe_test');
-            $result = mysqli_query($con, 'select * from users where username="'.$username.'" and password="'.$password.'"');
-            if(mysqli_num_rows($result) == 1){
-                $_SESSION['username'] = $username;
-                $recipesRepository = new RecipesRepository();
-                $recipes = $recipesRepository->getAllRecipes();
-
-                // add to args array
-                // ------------
-                $argsArray = [
-                    'recipes' => $recipes
-                ];
-                // render (draw) template
-                $templateName = 'list';
-                return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
-            } else {
-                echo "Account Information is invalid!";
-            }
+            // success - redirect to the secure admin home page
+            return $app->redirect('/admin');
         }
-        // add to args array
-        // ------------
-
-    }
-    public function logoutAction()
-    {
-        // add to args array
-        // ------------
-        $argsArray = [];
-
-        // render (draw) template
-        // ------------
         $templateName = 'login';
-        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+        $argsArray = array(
+            'errorMessage' => 'bad username or password - please re-enter',
+        );
+
+        return $app['twig']->render($templateName . '.html.twig', $argsArray);
+*/
+        session_start();
+        echo 'Welcome ' . $_SESSION['username'];
+        $request = $app['request_stack']->getCurrentRequest();
+        $username = $request->get('username');
+        $password = $request->get('password');
+
+        $con = mysqli_connect('localhost', 'root', '', 'recipe_test');
+        $result = mysqli_query($con, 'select * from users where username="' . $username . '" and password="' . $password . '"');
+
+        if (mysqli_num_rows($result) == 1) {
+            $app['session']->set('user', array('username' => $username));
+            //$_SESSION['username'] = $username;
+            $recipesRepository = new RecipesRepository();
+            $recipes = $recipesRepository->getAllRecipes();
+            $argsArray = ['recipes' => $recipes];     // add to args array
+            $templateName = 'list';// render (draw) template
+            return $app['twig']->render($templateName . '.html.twig', $argsArray);
+        } else {
+            echo 'Welcome';
+            echo "Account Information is invalid!";
+        }
     }
 }

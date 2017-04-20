@@ -9,10 +9,12 @@
 namespace Itb;
 
 use Silex\Application;
+use Silex\Controller;
 use Silex\Provider;
 
 use Itb\Controller\MainController;
 use Itb\Controller\UserController;
+use Itb\Controller\AdminController;
 
 class WebApplication extends Application
 {
@@ -22,8 +24,9 @@ class WebApplication extends Application
     public function __construct()
     {
         parent::__construct();
+
         // setup Session and Service controller provider
-        //$this->register(new Provider\SessionServiceProvider());
+        $this->register(new Provider\SessionServiceProvider());
         $this->register(new Provider\ServiceControllerServiceProvider());
 
         $this['debug'] = true;
@@ -50,36 +53,34 @@ class WebApplication extends Application
         //==============================
         // controllers as a service
         //==============================
-        $this['main.controller'] = function () {
+        $this['main.controller'] = function() {
             return new MainController($this);
         };
-        $this['user.controller'] = function () {
+        $this['user.controller'] = function() {
             return new UserController($this);
         };
-        $this['admin.controller'] = function () {
+        $this['admin.controller'] = function() {
             return new AdminController($this);
         };
 
-        //==============================
-        // now define the routes
-        //==============================
+        /**
+         * Defining all the routes:
+         **/
 
-        // -- main --
+        // MAIN
         $this->get('/', 'main.controller:indexAction');
-        $this->get('/list', 'main.controller:listAction');
-        $this->get('/display/{id}', 'main.controller:displayAction');
-        $this->get('/display', 'main.controller:showNoIdAction');
+        $this->get('/list','main.controller:listAction');
+        $this->get('/display/{id}','main.controller:displayAction');
 
-
-        // ------ login routes GET and POST ------------
+        // LOGIN (GET and POST)
         $this->get('/login', 'user.controller:loginAction');
         $this->post('/login', 'user.controller:processLoginAction');
-        // ------ logout route GET ------------
+
+        // LOGOUT route (GET)
         $this->get('/logout', 'user.controller:logoutAction');
 
-        // ------ SECURE PAGES ----------
-        $this->get('/admin', 'admin.controller:indexAction');
-        $this->get('/admin/codes', 'admin.controller:codesAction');
+        // SECURE PAGES
+        $this->get('/admin',  'admin.controller:indexAction');
+        $this->get('/admin/codes',  'admin.controller:codesAction');
     }
 }
-?>

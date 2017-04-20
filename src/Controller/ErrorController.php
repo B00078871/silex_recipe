@@ -2,8 +2,9 @@
 namespace Itb\Controller;
 
 use Itb\WebApplication;
+use Symfony\Component\Debug\ExceptionHandler as Symfony_ExceptionHandler;
 
-class ErrorController
+class ErrorController extends Symfony_ExceptionHandler
 {
     private $app;
 
@@ -29,7 +30,6 @@ class ErrorController
         $argsArray = array(
             'errorMessage' => $errorMessage
         );
-
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 }

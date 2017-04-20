@@ -1,0 +1,35 @@
+home:
+  route: /
+  method: get
+  controller: MainController
+  action: indexAction
+
+about:
+  route: /list
+  method: get
+  controller: MainController
+  action: listAction
+
+display:
+  route: /display/{id}
+  method: get
+  controller: MainController
+  action: displayAction
+
+showNoId:
+  route: /display/
+  method: get
+  controller: MainController
+  action: showNoIdAction
+
+login:
+  route: /login
+  method: get
+  controller: UserController
+  action: loginAction
+
+  Logout:
+    route: /logout
+    method: get
+    controller: UserController
+    action: logoutAction

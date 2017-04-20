@@ -1,5 +1,4 @@
 <?php
-
 // my settings
 // ------------
 $myTemplatesPath = __DIR__ . '/../templates';
