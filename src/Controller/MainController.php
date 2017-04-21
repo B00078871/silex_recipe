@@ -91,4 +91,19 @@ class MainController
         // 400 - bad request
         $app->abort(400, $errorMessage);
     }
+
+    public function searchTags(Request $request, SilexApp $app){
+        $request = $app['request_stack']->getCurrentRequest();
+        $tags = $request->get('tags');
+        $con = mysqli_connect('localhost', 'root', '', 'recipe_test');
+        $result = mysqli_query($con, 'select * from recipes where tags="' . $tags . '"');
+        if (mysqli_num_rows($result) == 1) {
+            //$app['session']->set('tags', array('tags' => $tags));
+            $recipesRepository = new RecipesRepository();
+            return $recipesRepository->getRecipeTags($tags);
+        } else {
+            echo "Account Information is invalid!";
+            return $app->redirect('/error');
+        }
+    }
 }

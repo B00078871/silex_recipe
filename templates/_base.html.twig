@@ -30,11 +30,11 @@
             {% if username is defined %}
                 <li>
                     <hr>
-                    <a href="admin/index">secure Admin home</a>
+                    <a href="admin/index">Recipe Tags</a>
                 </li>
 
                 <li>
-                    <a href="admin/codes">secret codes list</a>
+                    <a href="admin/codes">My Recipes</a>
                 </li>
             {% endif %}
 
@@ -45,9 +45,17 @@
         {% if username is defined %}
             You are logged in as: {{ username }}
             <br>
-            <a href="/logout">logout</a>
+            <ul>
+                <li>
+                    <a href="/logout">logout</a>
+                </li>
+            </ul>
         {% else %}
-            <a href="/login">login</a>
+            <ul>
+                <li>
+                    <a href="/login">login</a>
+                </li>
+            </ul>
         {% endif %}
     </section>
 </header>

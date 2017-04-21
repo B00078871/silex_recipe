@@ -18,7 +18,7 @@ class RecipesRepository
         $r1->setId(1);
         $r1->setTitle('Chocolate Chip Gooey Brownies');
         $r1->setImage('brownies.jpg');
-        $r1->setTags('dessert, chocolate, brownies, kids');
+        $r1->setTags('party, easy, quick, chocolate, brownies, kids');
         $r1->setIngredients('chocolate, butter, sugar');
         $r1->setInstructions('Mix together');
         $this->addRecipes($r1);
@@ -27,8 +27,8 @@ class RecipesRepository
         $r2->setId(2);
         $r2->setTitle('Banoffi Pie');
         $r2->setImage('banoffi.jpg');
-        $r2->setTags('dessert, banana, cream, light');
-        $r2->setIngredients('chocolate');
+        $r2->setTags('dessert, banana, cream, light, banoffi, pie, caramel');
+        $r2->setIngredients('Fresh cream, banana, digestive bicuits, tinned caramel.');
         $r2->setInstructions('chocolate');
         $this->addRecipes($r2);
 
@@ -36,8 +36,8 @@ class RecipesRepository
         $r3->setId(3);
         $r3->setTitle('Baileys Cheesecake');
         $r3->setImage('cheesecake.jpg');
-        $r3->setTags('chocolate');
-        $r3->setIngredients('biscuit, Baileys, cheesecake, alcohol, light');
+        $r3->setTags('alcoholic, light, pie, cheesecake, adult');
+        $r3->setIngredients('biscuit, Baileys, cheesecake');
         $r3->setInstructions('1. Layer together\n, 2. Mix');
         $this->addRecipes($r3);
         
@@ -77,6 +77,15 @@ class RecipesRepository
     {
         if(array_key_exists($id, $this->recipes)){
             return $this->recipes[$id];
+        } else {
+            return null;
+        }
+    }
+
+    public function getRecipeTags($tags)
+    {
+        if(array_key_exists($tags, $this->recipes)){
+            return $this->recipes[$tags];
         } else {
             return null;
         }

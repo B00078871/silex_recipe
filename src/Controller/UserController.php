@@ -57,7 +57,6 @@ class UserController
     public function processLoginAction(Request $request, SilexApp $app)
     {
         session_start();
-        echo 'Welcome ' . $_SESSION['username'];
         $request = $app['request_stack']->getCurrentRequest();
         $username = $request->get('username');
         $password = $request->get('password');

@@ -1,9 +1,26 @@
 {% extends '_base.html.twig' %}
 
-{% block title %}admin home{% endblock %}
+{% block title %}User Tags{% endblock %}
 
 {% block main %}
 
-    <h1>Welcome to the Admin home page !</h1>
+    <h1>Welcome to the recipe tags page !</h1>
+
+    <form method="get" action="/list">
+    <table>
+    <tr>
+        <td>Search database for tags: </td>
+        <td><input type="text" name="tags"></td>
+        <td><input type="submit" name="bttSearch" value="Search"></td>
+    </tr>
+    </table>
+    <hr>
+    <table>
+        {% for recipes in recipes %}
+            <tr>
+                <td> {{ recipes.tags }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}

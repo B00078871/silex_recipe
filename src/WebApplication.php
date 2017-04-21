@@ -88,6 +88,9 @@ return $errorController->errorAction($this, $errorMessage);
         $this['admin.controller'] = function() {
             return new AdminController($this);
         };
+        $this['error.controller'] = function() {
+        return new ErrorController($this);
+    };
 
         /**
          * Defining all the routes:
@@ -97,7 +100,8 @@ return $errorController->errorAction($this, $errorMessage);
         $this->get('/list','main.controller:listAction');
         $this->get('/display/{id}','main.controller:displayAction');
         $this->get('/display','main.controller:showNoIdAction');
-
+        //$this->post('/tags','main.controller:searchTags');
+        $this->get('/error', 'error.controller:errorAction');
         // LOGIN (GET and POST)
         $this->get('/login', 'user.controller:loginAction');
         $this->post('/login', 'user.controller:processLoginAction');
@@ -106,7 +110,7 @@ return $errorController->errorAction($this, $errorMessage);
         $this->get('/logout', 'user.controller:logoutAction');
 
         // SECURE PAGES
-        $this->get('/admin',  'admin.controller:indexAction');
+        $this->get('/admin/index',  'admin.controller:indexAction');
         $this->get('/admin/codes',  'admin.controller:codesAction');
     }
 }
