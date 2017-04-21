@@ -10,12 +10,21 @@ class MainController
 {
     private $app;
 
+    /**
+     * MainController constructor.
+     * @param WebApplication $app
+     */
     public function __construct(WebApplication $app)
     {
         $this->app = $app;
     }
 
-    // action for route:    /
+    /**
+     * Index Action for route: /
+     * @param Request $request
+     * @param SilexApp $app
+     * @return mixed twig template
+     */
     public function indexAction(Request $request, SilexApp $app)
     {
         // add to args array
@@ -24,10 +33,16 @@ class MainController
         $templateName = 'index';
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
-    // route for /list
+
+    /**
+     * route for /list
+     * @param Request $request
+     * @param SilexApp $app
+     * @return mixed twig template
+     */
     public function listAction(Request $request, SilexApp $app)
     {
-        // Reference the  repository & get array of all Recipess
+        // Reference the repository & get array of all Recipess
         $recipesRepository = new RecipesRepository();
         $recipes = $recipesRepository->getAllRecipes();
         // add to args array
@@ -39,12 +54,20 @@ class MainController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
     // route for /display
+
+    /**
+     * Route for /display
+     * @param Request $request
+     * @param SilexApp $app
+     * @param $id
+     * @return mixed twig template
+     */
     public function displayAction(Request $request, SilexApp $app, $id)
     {
-        // get reference to our repository
+        // reference to repository
         $recipesRepository = new RecipesRepository();
         $recipes = $recipesRepository->getOneRecipes($id);
-
+        // if no recipe result with given ID
         if(null == $recipes){
             $errorMessage = 'Sorry, No recipe found with id = ' . $id;
             $app->abort(404, $errorMessage);
@@ -57,9 +80,14 @@ class MainController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * Error message if no ID entered
+     * @param Request $request
+     * @param SilexApp $app
+     */
     public function showNoIdAction(Request $request, SilexApp $app)
     {
-        $errorMessage = 'you must provide an isbn for the show page (e.g. /show/123)';
+        $errorMessage = 'you must provide an id for the display page (e.g. /display/123)';
         // 400 - bad request
         $app->abort(400, $errorMessage);
     }

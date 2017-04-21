@@ -12,14 +12,8 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `recipe_test`
+-- Table structure for table `recipes`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `books`
---
-
 CREATE TABLE `recipes` (
   `id` int(11) NOT NULL,
   `title` text NOT NULL,
@@ -33,26 +27,16 @@ CREATE TABLE `recipes` (
 --
 -- Dumping data for table `recipes`
 --
-
 INSERT INTO `recipes` (`id`, `title`, `image`, `tags`, `ingredients`, `instructions`) VALUES
-(1, 'Chocolate Brownies', 'brownie.jpg', 'brownies, chcolate','Chocolate, butter, sugar','Mix together'),
+(1, 'Chocolate Brownies', 'brownie.jpg', 'brownies, chocolate','Chocolate, butter, sugar','Mix together'),
 (2, 'Banoffi Pie', 'banoffie.jpg', 'banoffi, banana, cream', 'Cream, Baileys, Banana, Digestive Biscuit', 'mix together and layer it'),
 (3, 'Baileys Cheesecake', 'cheesecake.jpg', 'Baileys, cheesecake, cake', 'Digestive Biscuits, Baileys','Layers of cream and biscuit');
-
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `recipes`
 --
 ALTER TABLE `recipes`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
+ADD PRIMARY KEY (`id`);
 --
 -- AUTO_INCREMENT for table `recipes`
 --

@@ -1,35 +1,28 @@
 <?php
+
 namespace Itb\Controller;
 
-use Itb\WebApplication;
-use Symfony\Component\Debug\ExceptionHandler as Symfony_ExceptionHandler;
-
-class ErrorController extends Symfony_ExceptionHandler
+use Silex\Application;
+/*
+ * Error Controller Class
+ */
+class ErrorController
 {
-    private $app;
-
-    public function __construct(WebApplication $app)
+    /**
+     * @param Application $app
+     * @param string $errorMessage
+     * @return mixed twig template
+     */
+    public function errorAction(Application $app, string $errorMessage)
     {
-        $this->app = $app;
-    }
-
-    public function errorAction(\Exception $e)
-    {
-        $statusCode = $e->getStatusCode();
-        $errorMessage = $e->getMessage();
-
-        // default - general error
-        // ------------
+        // render template for error
         $templateName = 'error/error';
 
-        // special message for 404 not found errors...
-        if(404 == $statusCode){
-            $templateName = 'error/error404';
-        }
-
+        // store error message in args array
         $argsArray = array(
-            'errorMessage' => $errorMessage
+            'message' => $errorMessage
         );
-        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+
+        return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 }

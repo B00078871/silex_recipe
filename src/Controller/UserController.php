@@ -22,7 +22,9 @@ class UserController
     {
         $this->app = $app;
     }
-    // route for /login
+    /**
+     * route for /login
+     **/
     public function loginAction(Request $request, SilexApp $app)
     {
         // add to args array
@@ -31,6 +33,13 @@ class UserController
         $templateName = 'login';
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
+
+    /**
+     * logout action route
+     * @param Request $request
+     * @param SilexApp $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function logoutAction(Request $request, SilexApp $app)
     {
         // logout any existing user
@@ -38,46 +47,34 @@ class UserController
         // redirect to home page
         return $app->redirect('/');
     }
+
+    /**
+     * process
+     * @param Request $request
+     * @param SilexApp $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function processLoginAction(Request $request, SilexApp $app)
     {
-        /*$request = $app['request_stack']->getCurrentRequest();
-        $username = $request->get('username');
-        $password = $request->get('password');
-
-        if ('users' === $username && 'users' === $password) {
-            // store username in 'user' in 'session'
-            $app['session']->set('users', array('username' => $username));
-
-            // success - redirect to the secure admin home page
-            return $app->redirect('/admin');
-        }
-        $templateName = 'login';
-        $argsArray = array(
-            'errorMessage' => 'bad username or password - please re-enter',
-        );
-
-        return $app['twig']->render($templateName . '.html.twig', $argsArray);
-*/
         session_start();
         echo 'Welcome ' . $_SESSION['username'];
         $request = $app['request_stack']->getCurrentRequest();
         $username = $request->get('username');
         $password = $request->get('password');
-
+        // mySQL connection & query
         $con = mysqli_connect('localhost', 'root', '', 'recipe_test');
         $result = mysqli_query($con, 'select * from users where username="' . $username . '" and password="' . $password . '"');
-
+        // if results match a table row
         if (mysqli_num_rows($result) == 1) {
             $app['session']->set('user', array('username' => $username));
-            //$_SESSION['username'] = $username;
             $recipesRepository = new RecipesRepository();
             $recipes = $recipesRepository->getAllRecipes();
-            $argsArray = ['recipes' => $recipes];     // add to args array
+            $argsArray = ['recipes' => $recipes];// add to args array
             $templateName = 'list';// render (draw) template
             return $app['twig']->render($templateName . '.html.twig', $argsArray);
         } else {
-            echo 'Welcome';
             echo "Account Information is invalid!";
+            return $app->redirect('/error');
         }
     }
 }
