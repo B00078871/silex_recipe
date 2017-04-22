@@ -10,6 +10,8 @@
         {% for recipes in recipes %}
             <tr>
                 <td><a href="/display/{{ recipes.id }}"> {{ recipes.title }}</a></td>
+            </tr>
+            <tr>
                 <td><img src="/images/{{ recipes.image }}"></td>
             </tr>
         {% endfor %}

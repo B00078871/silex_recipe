@@ -1,29 +1,22 @@
 {% extends '_base.html.twig' %}
 
-{% block title %}admin codes{% endblock %}
+{% block title %}User Recipes{% endblock %}
 
 {% block main %}
 
     <h1>Welcome to your recipe profile page !</h1>
 
-    <ul>
-        <li>
-            q: how is the weather in Limerick?
-            <br>
-            a: wet and windy for this time of year
-        </li>
+    <h2>Add a recipe</h2>
+    <b>EXAMPLE: 1,'Chocolate Brownies','recipe.jpg','chocolate, kids, dessert','butter, sugar, chocolate','mix together and bake!'</b>
+    <br>
+    <p>
+    <input type="text" name="add">
+    <input type="submit" name="bttAdd" value="Add New">
 
-        <li>
-            q: Is that the New York Stamp Collector Annual you are reading?
-            <br>
-            a: yes, philately is my favourite hobby for this time of year
-        </li>
-
-        <li>
-            q: good weather for ducks!
-            <br>
-            a: yes, they like the wind and rain this time of year
-        </li>
-    </ul>
-
+    <h2>Remove a recipe</h2>
+    <b>Just enter the recipe ID... i.e. 123'</b>
+    <br>
+    <input type="text" name="delete">
+    <input type="submit" name="bttDelete" value="Delete">
+    </p>
 {% endblock %}
