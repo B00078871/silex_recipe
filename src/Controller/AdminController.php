@@ -21,19 +21,19 @@ class AdminController
      *
      * simple authentication using Silex session object
      * $app['session']->set('isAuthenticated', false);
-     *
-     * but the propert way to do it:
-     * https://gist.github.com/brtriver/1740012
-     *
-     * @package Hdip\Controller
      */
     private $app;
     public function __construct(WebApplication $app)
     {
         $this->app = $app;
     }
-    // action for route:    /admin
-    // will we allow access to the Admin home?
+
+    /**
+     * action for route: user login /index
+     * @param Request $request
+     * @param Application $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function indexAction(Request $request, Application $app)
     {
         // test if 'username' stored in session ...
@@ -52,8 +52,13 @@ class AdminController
         $templateName = 'admin/index';
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
-    // route for /adminCodes
-    // will we allow access to the Admin home?
+
+    /**
+     * route for users recipes
+     * @param Request $request
+     * @param Application $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function codesAction(Request $request, Application $app)
     {
         $username = $this->getAuthenticatedUserName();
@@ -70,6 +75,10 @@ class AdminController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * retrieve users name
+     * @return $user username or null
+     */
     public function getAuthenticatedUserName()
     {
         // IF object (array) 'user' found with non-null value in 'session'

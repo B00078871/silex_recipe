@@ -9,22 +9,22 @@ namespace Itb\Model;
 class Recipes
 {
     /**
-     * isbn of book (unique primary KEY)
+     * id of recipes (unique primary KEY)
      *
      * example:
      * <code>
-     * 1234
+     * 123
      * </code>
      * @var integer
      */
     private $id;
 
     /**
-     * title of book
+     * title of recipe
      *
      * example:
      * <code>
-     * The Return of Sherlock Holmes
+     * Chocolate Brownies
      * </code>
      *
      * @var string
@@ -32,54 +32,54 @@ class Recipes
     private $title;
 
     /**
-     * path to cover image
+     * path to image
      *
      * example:
      * <code>
-     * holmes_return.jpg
+     * brownies.jpg
      * </code>
      * @var string
      */
     private $image;
 
     /**
-     * total number of pages (including Index)
+     * recipe tags
      *
      * example:
      * <code>
-     * 20
+     * dessert
      * </code>
      * @var int
      */
     private $tags;
     /**
-     * total number of pages (including Index)
+     * recipe ingredients
      *
      * example:
      * <code>
-     * 20
+     * banana, cream, etc.
      * </code>
      * @var int
      */
     private $ingredients;
     /**
-     * total number of pages (including Index)
+     * baking instructions
      *
      * example:
      * <code>
-     * 20
+     * bake for 20mins
      * </code>
      * @var int
      */
     private $instructions;
 
     /**
-     * set ISBN
+     * set ID
      *
      * example usage:
      *
      * <code>
-     * $book->setId(1234);
+     * $recipe->setId(123);
      * </code>
      * @param integer $id
      */
@@ -89,12 +89,12 @@ class Recipes
     }
 
     /**
-     * get the ISBN
+     * get the ID
      *
      * example usage:
      *
      * <code>
-     * $isbn = $b->getId();
+     * $id = $recipe->getId();
      * </code>
      * @return integer
      */
@@ -122,7 +122,7 @@ class Recipes
     }
 
     /**
-     * get the total number of pages
+     * get the recipe tags
      * @return int
      */
     public function getTags()
@@ -130,15 +130,16 @@ class Recipes
         return $this->tags;
     }
     /**
-     * get the total number of pages
+     * get the ingredients of recipe
      * @return int
      */
     public function getIngredients()
     {
         return $this->ingredients;
     }
+
     /**
-     * get the total number of pages
+     * recipe cooking instructions
      * @return int
      */
     public function getInstructions()
@@ -146,7 +147,7 @@ class Recipes
         return $this->instructions;
     }
     /**
-     * set the book title
+     * set the recipe title
      * @param string $title
      */
     public function setTitle($title)
@@ -164,21 +165,26 @@ class Recipes
     }
 
     /**
-     * @param int $numPages
+     * set recipe tags
+     * @param $tags
      */
     public function setTags($tags)
     {
         $this->tags = $tags;
     }
+
     /**
-     * @param int $numPages
+     * set recipe ingredients
+     * @param $ingredients
      */
     public function setIngredients($ingredients)
     {
         $this->ingredients = $ingredients;
     }
+
     /**
-     * @param int $numPages
+     * set instructions
+     * @param $instructions
      */
     public function setInstructions($instructions)
     {
