@@ -18,7 +18,8 @@ ADD PRIMARY KEY (`user_id`);
 --
 INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
 (1, 'kevinlardner', '123456'),
-(2, 'mattsmith', '654321');
+(2, 'mattsmith', '654321'),
+  (2, 'admin', 'password');
 
 --
 -- AUTO_INCREMENT for table `users`
