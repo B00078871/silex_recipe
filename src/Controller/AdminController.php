@@ -9,6 +9,8 @@
 namespace Itb\Controller;
 
 use Itb\Model\RecipesRepository;
+use Itb\model\Users;
+use Itb\model\UsersRepository;
 use Itb\WebApplication;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,6 +93,22 @@ class AdminController
         // IF no value found in $user with key 'username' then return NULL
         if (!isset($user['username'])){
             return null;
+        }
+        // if delete User button is pressed
+        if (isset($_GET['deleteUser'])){
+            $request = $this->app['request_stack']->getCurrentRequest();
+            $delete = $request->get('deleteUser');
+            $users = new Users();
+            $id = $users->getId();
+            $con = mysqli_connect('localhost', 'root', '', 'user_roles');
+            $result = mysqli_query($con, 'DELETE FROM users WHERE id="' . $delete . '"');
+            if(isset($_GET['bttDelete'])) {
+                if ($result == $id) {
+                    $usersRepository = new UsersRepository();
+                    $users = $usersRepository->removeUsers($id);
+                    unset($this->$users[$id]);
+                }
+            }
         }
         // if we get here, we can return the value whose key is 'username'
         return $user['username'];
