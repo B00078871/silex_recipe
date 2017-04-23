@@ -37,7 +37,19 @@
                     <a href="admin/codes">My Recipes</a>
                 </li>
             {% endif %}
+            {#
 
+            -- WANTED TO TEST IS USERNAME IS EQUAL TO "ADMIN" --
+
+
+            {% if is_granted('admin') %}
+                <h1>Delete user</h1>
+                <b>Enter user ID: </b>
+                <br>
+                <input type="text" name="deleteUser">
+                <input type="submit" value="Delete">
+            {% endif %}
+            #}
         </ul>
     </nav>
     <!-- login / logout -->
