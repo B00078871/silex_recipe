@@ -16,6 +16,12 @@ display:
   controller: MainController
   action: displayAction
 
+error:
+  route: /error
+  method: get
+  controller: ErrorController
+  action: errorAction
+
 showNoId:
   route: /display/
   method: get
@@ -28,8 +34,8 @@ login:
   controller: UserController
   action: loginAction
 
-  Logout:
-    route: /logout
-    method: get
-    controller: UserController
-    action: logoutAction
+logout:
+  route: /logout
+  method: get
+  controller: UserController
+  action: logoutAction
